@@ -1,29 +1,21 @@
 package com.example.apicoroutines
 
-import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.appcompat.view.menu.MenuView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.apicoroutines.databinding.ListRowBinding
 
-class Adapter(val userList: ArrayList<QuoteList.Result>) : RecyclerView.Adapter<Adapter.ViewHolder>() {
+class Adapter(private var userList: ArrayList<QuoteList.Result>) : RecyclerView.Adapter<Adapter.ViewHolder>() {
 
-    class ViewHolder(itemView:View):RecyclerView.ViewHolder(itemView){
-        fun getItems(user:QuoteList.Result) {
-            itemView.findViewById<TextView>(R.id.tv_name)
-
-        }
-    }
+    class ViewHolder( var binding: ListRowBinding):RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val layoyt=LayoutInflater.from(parent.context).inflate(R.layout.list_row,parent,false)
-        return ViewHolder(layoyt)
+        val binding=ListRowBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.getItems(userList[position])
+        holder.binding.item = userList.get(position)
     }
 
     override fun getItemCount(): Int {
